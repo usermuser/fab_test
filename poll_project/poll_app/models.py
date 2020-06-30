@@ -13,23 +13,21 @@ class Poll(models.Model):
         verbose_name_plural = 'Опросы'
 
     def __str__(self):
-        return f'{self.name} Дата старта опроса: {self.start_date}'
+        return f'{self.name} start: {self.start_date}, end: {self.end_date}'
 
 
 class Question(models.Model):
     CHOICES_TYPES = [
-        ('Text answer', 'Ответ текстом'),
-        ('Single checkbox answer', 'Ответ с выбором одного варианта'),
-        ('Multiple checkbox answer', 'Ответ с выбором нескольких вариантов'),
-
+        ('text', 'Ответ текстом'),
+        ('single', 'Ответ с выбором одного варианта'),
+        ('multiple', 'Ответ с выбором нескольких вариантов'),
     ]
     text = models.TextField(verbose_name='Текст вопроса')
     poll = models.ForeignKey('Poll', related_name='questions', on_delete=models.CASCADE)
-    type = models.CharField(choices=)
-
+    type = models.CharField(max_length=255, choices=CHOICES_TYPES)
 
     def __str__(self):
-        return self.text[:20]
+        return self.text
 
 
 
