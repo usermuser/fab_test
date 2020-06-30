@@ -21,13 +21,32 @@ class PollsView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        pass
+        poll = request.data.get("poll")
+        serializer = PollSerializer(data=poll)
+        if serializer.is_valid(raise_exception=True):
+            poll_saved = serializer.save()
+        return Response(
+            {"success": f"Poll '{poll_saved.name}' created succesfully"}
+        )
 
     def put(self, request, pk):
-        pass
+        saved_poll = get_object_or_404(Poll.objects.all(), pk=pk)
+        data = request.data.get('poll')
+        serializer = PollSerializer(instance=saved_poll, data=data, partial=True)
+
+        if serializer.is_valid(raise_exception=True):
+            poll_saved = serializer.save()
+
+        return Response(
+            {"success": f"Poll '{poll_saved}' updated successfully"}
+        )
 
     def delete(self, request, pk):
-        pass
+        poll = get_object_or_404(Poll.objects.all(), pk=pk)
+        poll.delete()
+        return Response(
+            {"message": f"Poll with id {pk} has been deleted"}, status=204
+        )
 
 
 class QuestionsView(APIView):
