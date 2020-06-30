@@ -32,8 +32,8 @@ class PollsView(APIView):
 
 class QuestionsView(APIView):
     """
-        TODO don't forget to add docstring
-        """
+    TODO don't forget to add docstring
+    """
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
