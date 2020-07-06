@@ -11,7 +11,7 @@ class PollSerializer(serializers.Serializer):
     start_date = serializers.DateField()
     end_date = serializers.DateField()
     description = serializers.CharField(max_length=255)
-    questions = serializers.ListSerializer() # todo test this, here should be list of id's of questions
+    # questions = serializers.ListSerializer()  # todo test this, here should be list of id's of questions
 
     def create(self, validated_data):
         return Poll.objects.create(**validated_data)
