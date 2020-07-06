@@ -4,3 +4,6 @@ WORKDIR /project
 
 COPY ./poll_project .
 
+RUN pip install -r requirements.txt
+
+CMD [ "ls" ]
