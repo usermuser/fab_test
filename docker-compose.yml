@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  logs: &logs-template
+    image: scratch
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
+
+  web:
+    <<: *logs-template
+    container_name: django_poll_project
+    build: .
+    expose:
+      - 8000
+    ports:
+      - 80:8000
+    command: 'python manage.py runserver 0.0.0.0:8000'

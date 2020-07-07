@@ -26,6 +26,9 @@ class Question(models.Model):
     poll = models.ForeignKey('Poll', related_name='questions', on_delete=models.CASCADE)
     type = models.CharField(max_length=255, choices=CHOICES_TYPES)
 
+    def short_text(self):
+        return self.text[:20]
+
     class Meta:
         verbose_name = 'Вопрос'
         verbose_name_plural = 'Вопросы'
