@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
 from .models import Poll, Question
-from .serializers import PollSerializer
+from .serializers import PollSerializer, QuestionSerializer
 
 
 class PollsView(APIView):
@@ -13,7 +13,7 @@ class PollsView(APIView):
     TODO don't forget to add docstring
     """
     authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get(self, request):
         queryset = Poll.objects.all()
@@ -54,11 +54,11 @@ class QuestionsView(APIView):
     TODO don't forget to add docstring
     """
     authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get(self, request):
         queryset = Question.objects.all()
-        serializer = PollSerializer(queryset, many=True)
+        serializer = QuestionSerializer(queryset, many=True)
         return Response(serializer.data)
 
     def post(self, request):
