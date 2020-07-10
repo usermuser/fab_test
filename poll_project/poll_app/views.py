@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -15,10 +16,16 @@ class PollsView(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     # permission_classes = [IsAuthenticated]
 
+    def get_object(self, pk):
+        try:
+            return Poll.objects.get(pk=pk)
+        except Poll.DoesNotExist:
+            return Http404
+
     def get(self, request):
         queryset = Poll.objects.all()
         serializer = PollSerializer(queryset, many=True)
-        return Response(serializer.data)
+        return Response({"polls":serializer.data})
 
     def post(self, request):
         poll = request.data.get("poll")
@@ -56,8 +63,8 @@ class QuestionsView(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     # permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        queryset = Question.objects.all()
+    def get(self, request, pk):
+        queryset = Question.objects.filter(poll__pk=pk)
         serializer = QuestionSerializer(queryset, many=True)
         return Response(serializer.data)
 
