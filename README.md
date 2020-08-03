@@ -52,4 +52,9 @@ CHOICES_TYPES = [
 ## Версия джанги в задании
 По заданию требуется использовать Django==2.2.10, что и было сделано.  
 Хочу обратить внимание на то, что вышел патч безопасности:     
-https://docs.djangoproject.com/en/3.0/releases/2.2.13/   
+https://docs.djangoproject.com/en/3.0/releases/2.2.13/
+
+## Тесты  
+  
+Для запуска тестов используем команду `python manage.py test`  
+Тесты лежат в папке `poll_project/poll_app/tests`
